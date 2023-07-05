@@ -25,7 +25,7 @@ export default function SignUpForm() {
         signInWithPopup(auth, provider)
         .then(response => {
             setUser(response.user)
-            navigate("/");
+            navigate("/")
         })
         .catch(err => alert(err.message))
     }
@@ -40,8 +40,9 @@ export default function SignUpForm() {
                 navigate("/");
             })
             .catch(err => alert(err.message))
+        }
 
-    return( 
+    return ( 
         <main>
         <form onSubmit={handleSignup}>
             <label htmlFor="email">
@@ -59,4 +60,4 @@ export default function SignUpForm() {
         <button onClick={handleGoogle}>Sign up with Google</button>
         </main>
     )
-    }}
+    }
