@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../App";
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDpHUq_OiwvYoRlLmTYCCPwQJ4DRNmPWwY",
@@ -30,11 +30,11 @@ export default function SignUpForm() {
         .catch(err => alert(err.message))
     }
 
-    const handleSignup = (e) => {
+    const handleLogin = (e) => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
-        createUserWithEmailAndPassword(auth, email, password)
+        signInWithEmailAndPassword(auth, email, password)
             .then(response => {
                 setUser(response.user)
                 navigate("/");
@@ -43,21 +43,19 @@ export default function SignUpForm() {
         }
 
     return ( 
-        <main>
-        <form onSubmit={handleSignup}>
-            <label htmlFor="email">
-                Email 
-                <input type="email" name="email" />
+        <section className="bg-red-800 p-6 rounded-lg max-w-[420px] w-full mx-auto">
+        <form onSubmit={handleLogin} className="flex flex-col items-start justify-around min-h-[30vh]">
+            <label htmlFor="email" className="flex justify-between w-full">
+                <span>Email</span>
+                <input type="email" name="email" className="rounded-lg border-transparent border border-violet-500 py-2 px4 bg-zinc-50 text-zinc-700 placeholder-zinc-400 text-base focus:ring-2 focus:ring-violet-600 focus:border-transparent"/>
             </label>
-            <br />
-            <label htmlFor="password">
-                Password 
-                <input type="password" name="password" />
+            <label htmlFor="password" className="flex justify-between w-full">
+            <span>Password</span> 
+            <input type="password" name="password" className="rounded-lg border-transparent border border-violet-500 py-2 px4 bg-zinc-50 text-zinc-700 placeholder-zinc-400 text-base focus:ring-2 focus:ring-violet-600 focus:border-transparent"/>
             </label>
-            <br />
-            <input type="submit" value="Sign Up" />
+            <input type="submit" value="Login" className="bg-green-300 text-violet-950 py-2 px-8 rounded-lg shadow-lg transition duration-300 hover:bg-violet-300 hover:shadow-sm cursor-pointer"/>
         </form>
-        <button onClick={handleGoogle}>Sign up with Google</button>
-        </main>
+        <button onClick={handleGoogle} className="bg-sky-300 text-violet-950 py-2 px-8 rounded-lg shadow-lg transition duration-300 hover:bg-violet-300 hover:shadow-sm cursor-pointer w-full">Login with Google</button>
+        </section>
     )
     }
